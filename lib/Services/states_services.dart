@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:coronavirus_app/Modal/world_countries_modal.dart';
 import 'package:coronavirus_app/Services/Utilities/app_url.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,6 +14,20 @@ class StatesServices {
       return WorldStatesModal.fromJson(data);
     } else {
       throw Exception('Error');
+    }
+  }
+
+  List<WorldCountriesModal> countrieslist = [];
+  Future<List<WorldCountriesModal>> getcountriesdata() async {
+    final response = await http.get(Uri.parse(AppUrl.countrieslist));
+    var data = jsonDecode(response.body.toString());
+    if (response.statusCode == 200) {
+      for (Map i in data) {
+        countrieslist.add(WorldCountriesModal.fromJson(i));
+      }
+      return countrieslist;
+    } else {
+      return countrieslist;
     }
   }
 }

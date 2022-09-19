@@ -1,4 +1,5 @@
 import 'package:coronavirus_app/View/countries_list_screen.dart';
+import 'package:coronavirus_app/View/detailScreen.dart';
 import 'package:coronavirus_app/resources/stringmanager.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class Routes {
   static const String splashscreen = '/';
   static const String worldstats = 'worldstats';
   static const String countrylist = 'country';
+  static const String detail = 'detail';
 }
 
 class RoutGenerator {
@@ -27,6 +29,10 @@ class RoutGenerator {
         return MaterialPageRoute(
           builder: (_) => const CountriesListScreen(),
         );
+      case Routes.detail:
+        return MaterialPageRoute(
+            builder: (_) => DetailScreen(),
+            settings: RouteSettings(arguments: routeSettings.arguments));
 
       default:
         return undefinedNameRoute();
