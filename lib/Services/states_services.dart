@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:coronavirus_app/Modal/world_countries_modal.dart';
 import 'package:coronavirus_app/Services/Utilities/app_url.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 import '../Modal/world_states_modal.dart';
@@ -31,3 +32,7 @@ class StatesServices {
     }
   }
 }
+
+final states_provider = Provider<StatesServices>((ref) {
+  return StatesServices();
+});
