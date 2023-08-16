@@ -26,7 +26,7 @@ class _WorldrecordStatesState extends ConsumerState<WorldrecordStates>
     SizeConfig().init(context);
     StatesServices services = StatesServices();
     final data = ref.watch(dataProvider);
-    return Scaffold(
+    return Scaffold( 
         body: data.when(
             error: (err, stack) => Text('Error: ${err.toString()}'),
             loading: () => SpinKitCircle(

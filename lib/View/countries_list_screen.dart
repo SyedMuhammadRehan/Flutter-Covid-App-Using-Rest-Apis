@@ -65,89 +65,103 @@ class _CountriesListScreenState extends ConsumerState<CountriesListScreen> {
               List<WorldCountriesModal> countrieslist =
                   data.map((e) => e).toList();
 
-              return Column(children: [
-                SizedBox(
-                  height: getProportionateScreenHeight(50),
-                  width: double.infinity,
-                  child: TextFormField(
-                    controller: searchcontroller,
-                    onChanged: (value) {
-                      setState(() {});
-                    },
-                    decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: 10),
-                        hintText: 'Search with country name',
-                        prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50))),
+              return SingleChildScrollView(
+                child: Column(children: [
+                  SizedBox(
+                    height: getProportionateScreenHeight(50),
+                    width: double.infinity,
+                    child: TextFormField(
+                      controller: searchcontroller,
+                      onChanged: (value) {
+                        setState(() {});
+                      },
+                      decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 10),
+                          hintText: 'Search with country name',
+                          prefixIcon: const Icon(Icons.search),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50))),
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: countrieslist.length,
-                      itemBuilder: ((context, index) {
-                        var data = countrieslist[index];
+                  ListView(
+                    primary: false,
+                    shrinkWrap: true,
+                    children: [
+                      ListView.builder(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount: countrieslist.length,
+                          // physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: ((context, index) {
+                            var data = countrieslist[index];
 
-                        var countrydata = countrieslist[index].country;
-                        if (searchcontroller.text.isEmpty) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                onTap: (() {
-                                  FocusScope.of(context).unfocus();
-                                  Navigator.pushNamed(context, Routes.detail,
-                                      arguments: data);
-                                }),
-                                child: ListTile(
-                                  title: Text(data.country.toString()),
-                                  leading: SizedBox(
-                                    height: getProportionateScreenHeight(100),
-                                    width: getProportionateScreenWidth(50),
-                                    child: Image(
-                                        image: Image.network(data
-                                                .countryInfo!.flag
-                                                .toString())
-                                            .image),
-                                  ),
-                                  subtitle: Text(data.cases.toString()),
-                                ),
-                              )
-                            ],
-                          );
-                        } else if (countrydata!
-                            .toLowerCase()
-                            .contains(searchcontroller.text.toLowerCase())) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                onTap: (() {
-                                  FocusScope.of(context).unfocus();
-                                  Navigator.pushNamed(context, Routes.detail,
-                                      arguments: data);
-                                }),
-                                child: ListTile(
-                                  title: Text(data.country.toString()),
-                                  leading: SizedBox(
-                                    height: getProportionateScreenHeight(100),
-                                    width: getProportionateScreenWidth(50),
-                                    child: Image(
-                                        image: Image.network(data
-                                                .countryInfo!.flag
-                                                .toString())
-                                            .image),
-                                  ),
-                                  subtitle: Text(data.cases.toString()),
-                                ),
-                              )
-                            ],
-                          );
-                        } else {
-                          return Container();
-                        }
-                      })),
-                ),
-              ]);
+                            var countrydata = countrieslist[index].country;
+                            if (searchcontroller.text.isEmpty) {
+                              return Column(
+                                children: [
+                                  InkWell(
+                                    onTap: (() {
+                                      FocusScope.of(context).unfocus();
+                                      Navigator.pushNamed(
+                                          context, Routes.detail,
+                                          arguments: data);
+                                    }),
+                                    child: ListTile(
+                                      title: Text(data.country.toString()),
+                                      leading: SizedBox(
+                                        height:
+                                            getProportionateScreenHeight(100),
+                                        width: getProportionateScreenWidth(50),
+                                        child: Image(
+                                            image: Image.network(data
+                                                    .countryInfo!.flag
+                                                    .toString())
+                                                .image),
+                                      ),
+                                      subtitle: Text(data.cases.toString()),
+                                    ),
+                                  )
+                                ],
+                              );
+                            } else if (countrydata!.toLowerCase().contains(
+                                searchcontroller.text.toLowerCase())) {
+                              return Column(
+                                children: [
+                                  InkWell(
+                                    onTap: (() {
+                                      FocusScope.of(context).unfocus();
+                                      Navigator.pushNamed(
+                                          context, Routes.detail,
+                                          arguments: data);
+                                    }),
+                                    child: ListTile(
+                                      title: Text(data.country.toString()),
+                                      leading: SizedBox(
+                                        height:
+                                            getProportionateScreenHeight(100),
+                                        width: getProportionateScreenWidth(50),
+                                        child: Image(
+                                            image: Image.network(data
+                                                    .countryInfo!.flag
+                                                    .toString())
+                                                .image),
+                                      ),
+                                      subtitle: Text(data.cases.toString()),
+                                    ),
+                                  )
+                                ],
+                              );
+                            } else {
+                              return Container(
+                                height: 0,
+                              );
+                            }
+                          })),
+                    ],
+                  ),
+                ]),
+              );
             })
 
             //  SafeArea(
